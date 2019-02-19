@@ -1,0 +1,397 @@
+﻿<Controls:MetroWindow x:Class="RocksmithFontGenerator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:local="clr-namespace:RocksmithFontGenerator"
+        mc:Ignorable="d"
+        Title="{Binding WindowTitle}"
+        Width="1040" Height="768"
+        MinHeight="620" MinWidth="795" AllowDrop="True" Loaded="MetroWindow_Loaded">
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+
+        <!--<Style TargetType="{x:Type Grid}" x:Key="FadeIn">
+            <Style.Triggers>
+                <Trigger Property="IsVisible" Value="True">
+                    <Trigger.EnterActions>
+                        <BeginStoryboard>
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity" From="0" To="1" Duration="0:0:0.30"/>
+                            </Storyboard>
+                        </BeginStoryboard>
+                    </Trigger.EnterActions>
+                </Trigger>
+            </Style.Triggers>
+        </Style>-->
+    </Window.Resources>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding OpenFile}" Key="O" Modifiers="Ctrl"/>
+        <KeyBinding Command="{Binding SaveFont}" Key="S" Modifiers="Ctrl"/>
+    </Window.InputBindings>
+
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Content="{Binding Source={StaticResource Localization}, Path=UI_Button_Config}">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard TargetName="AboutFlyout" TargetProperty="IsOpen">
+                                    <BooleanAnimationUsingKeyFrames>
+                                        <DiscreteBooleanKeyFrame Value="True" KeyTime="0"/>
+                                    </BooleanAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <Controls:MetroWindow.Flyouts>
+        <Controls:FlyoutsControl>
+            <Controls:Flyout x:Name="AboutFlyout" Header="{Binding Source={StaticResource Localization}, Path=UI_Header_Config}" Position="Right" Width="300">
+                <StackPanel>
+                    <Grid Margin="5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Label Content="{Binding Source={StaticResource Localization}, Path=UI_Label_Language}" Target="{x:Reference languageCB}"/>
+                        <ComboBox Grid.Column="1" x:Name="languageCB" ItemsSource="{Binding Languages}" SelectedItem="{Binding SelectedLanguage}"/>
+                    </Grid>
+
+                    <CheckBox IsChecked="{Binding UseDarkTheme}" Content="{Binding Source={StaticResource Localization}, Path=UI_Option_DarkTheme}" Margin="10, 5"/>
+
+                    <TextBlock Margin="10" FontSize="18" Text="{x:Static local:MainWindowViewModel.ProgramName}"/>
+                    <StackPanel Orientation="Horizontal" Margin="10,0">
+                        <TextBlock Text="{Binding Source={StaticResource Localization}, Path=UI_Label_Version}"/>
+                        <TextBlock Text="{Binding ProgramVersion}" Margin="4,0,0,0"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" Margin="10,0">
+                        <TextBlock Text="{Binding Source={StaticResource Localization}, Path=UI_Label_CreatedBy}"/>
+                        <TextBlock Text="iminashi" Margin="4,0,0,0"/>
+                    </StackPanel>
+                    <TextBlock Margin="10,15,0,0" Text="{Binding Source={StaticResource Localization}, Path=UI_Label_InfoAndHelp}" />
+                    <TextBlock
+                        Margin="10,0"
+                        Foreground="LightBlue"
+                        Cursor="Hand"
+                        TextDecorations="Underline"
+                        MouseUp="AboutLink_MouseUp"
+                        HorizontalAlignment="Left">
+                        Customsforge Thread
+                    </TextBlock>
+                </StackPanel>
+            </Controls:Flyout>
+        </Controls:FlyoutsControl>
+    </Controls:MetroWindow.Flyouts>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Margin="10,5,10,0">
+                <StackPanel.Resources>
+                    <Style TargetType="Button" BasedOn="{StaticResource {x:Type Button}}">
+                        <Setter Property="Margin" Value="0, 3"/>
+                    </Style>
+                </StackPanel.Resources>
+                <Button Content="{Binding Source={StaticResource Localization}, Path=UI_Button_OpenFile}"
+                        VerticalAlignment="Top"
+                        Command="{Binding OpenFile}"/>
+                <Button Content="{Binding Source={StaticResource Localization}, Path=UI_Button_SaveFont}"
+                        Command="{Binding SaveFont}"/>
+                <!--<Button x:Name="generateFontButton"
+                        Content="_Generate Font"
+                        Command="{Binding GenerateFont}"
+                        IsDefault="True"/>-->
+
+                <CheckBox x:Name="DrawRectsCB"
+                          Content="{Binding Source={StaticResource Localization}, Path=UI_Option_DisplayBoundingRectangles}"
+                          IsChecked="{Binding DisplayBoundingRectanglesChecked}"/>
+
+                <Label Content="{Binding Source={StaticResource Localization}, Path=UI_Label_FontSettings}"
+                       Target="{x:Reference fontSelect}"
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"/>
+                
+                <!--<Label Content="{Binding Source={StaticResource Localization}, Path=UI_Label_FontFamily}" Target="{x:Reference fontSelect}"/>-->
+
+                <ComboBox x:Name="fontSelect"
+                          Grid.Column="1"
+                          ItemsSource="{Binding FontList, Mode=OneTime}"
+                          SelectedItem="{Binding SelectedFont}"
+                          FontWeight="Bold" />
+
+                <Grid Margin="15,7">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Label Margin="0,3" Content="{Binding Source={StaticResource Localization}, Path=UI_Label_FontWeight}" Target="{x:Reference weightSelect}"/>
+                    <Label Margin="0,3" Grid.Row="1" Content="{Binding Source={StaticResource Localization}, Path=UI_Label_FontSize}" Target="{x:Reference fontSizeNumeric}"/>
+                    <Label Margin="0,3" Grid.Row="2" Content="{Binding Source={StaticResource Localization}, Path=UI_Label_FontSizeKanji}" Target="{x:Reference jpFontSizeNumeric}"/>
+
+                        <ComboBox Grid.Column="1" Grid.Row="0"
+                                  Margin="0,3"
+                                  x:Name="weightSelect"
+                                  ItemsSource="{Binding FontWeightList, Mode=OneTime}"
+                                  SelectedItem="{Binding SelectedFontWeight}"
+                                  DisplayMemberPath="LocalizedName">
+                            <ComboBox.ToolTip>
+                                <ToolTip Content="{Binding Source={x:Static local:Defaults.FontWeight}, Path=LocalizedName}"
+                                         ContentStringFormat="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" />
+                            </ComboBox.ToolTip>
+                        </ComboBox>
+                        
+                        <Controls:NumericUpDown x:Name="fontSizeNumeric"
+                                                Margin="0,3"
+                                                Grid.Column="1" Grid.Row="1"
+                                                Value="{Binding SelectedFontSize}"
+                                                Minimum="{Binding Source={x:Static local:Defaults.MinFontSize}, Mode=OneTime}"
+                                                Maximum="{Binding Source={x:Static local:Defaults.MaxFontSize}, Mode=OneTime}"
+                                                HasDecimals="False"
+                                                NumericInputMode="Numbers">
+                            <Controls:NumericUpDown.ToolTip>
+                                <ToolTip Content="{Binding Source={x:Static local:Defaults.FontSize}, Mode=OneTime}"
+                                         ContentStringFormat="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" />
+                            </Controls:NumericUpDown.ToolTip>
+                        </Controls:NumericUpDown>
+                        
+                        <Controls:NumericUpDown x:Name="jpFontSizeNumeric"
+                                                Margin="0,3"
+                                                Grid.Column="1" Grid.Row="2"
+                                                Value="{Binding SelectedKanjiFontSize}"
+                                                Minimum="{Binding Source={x:Static local:Defaults.MinFontSize}, Mode=OneTime}"
+                                                Maximum="{Binding Source={x:Static local:Defaults.MaxFontSize}, Mode=OneTime}"
+                                                HasDecimals="False"
+                                                NumericInputMode="Numbers">
+                            <Controls:NumericUpDown.ToolTip>
+                                <ToolTip Content="{Binding Source={x:Static local:Defaults.KanjiFontSize}, Mode=OneTime}"
+                                         ContentStringFormat="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" />
+                            </Controls:NumericUpDown.ToolTip>
+                        </Controls:NumericUpDown>
+                </Grid>
+
+                <!--<CheckBox x:Name="reverseColorsCheckBox" Content="Reverse Colors" Click="ReverseColorsCheckBox_Click"/>-->
+
+                <Label Content="{Binding Source={StaticResource Localization}, Path=UI_Label_DropShadowSettings}"
+                       HorizontalAlignment="Center"
+                       FontWeight="Bold"/>
+                <Grid Margin="15,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+
+                    <Label Grid.Row="0" Content="{Binding Source={StaticResource Localization}, Path=UI_Label_ShadowBlur}"/>
+                    <Slider Grid.Row="0" Grid.Column="1"
+                            Minimum="0" Maximum="20"
+                            Value="{Binding DropShadowSettings.BlurRadius, UpdateSourceTrigger=PropertyChanged}"
+                            SmallChange="1"
+                            AutoToolTipPlacement="TopLeft"
+                            Controls:SliderHelper.EnableMouseWheel="MouseHover"/>
+
+                    <Label Grid.Row="1" Content="{Binding Source={StaticResource Localization}, Path=UI_Label_ShadowDirection}"/>
+                    <Slider Grid.Row="1" Grid.Column="1"
+                            Minimum="0" Maximum="360"
+                            Value="{Binding DropShadowSettings.Direction, UpdateSourceTrigger=PropertyChanged}"
+                            SmallChange="1" LargeChange="10"
+                            AutoToolTipPlacement="TopLeft"
+                            Controls:SliderHelper.EnableMouseWheel="MouseHover"/>
+
+                    <Label Grid.Row="2" Grid.Column="0" Content="{Binding Source={StaticResource Localization}, Path=UI_Label_ShadowDepth}"/>
+                    <Slider Grid.Row="2" Grid.Column="1"
+                            Minimum="0" Maximum="10"
+                            Value="{Binding DropShadowSettings.Depth, UpdateSourceTrigger=PropertyChanged}"
+                            SmallChange="1"
+                            AutoToolTipPlacement="TopLeft"
+                            Controls:SliderHelper.EnableMouseWheel="MouseHover"/>
+
+                    <Label Grid.Row="3" Grid.Column="0" Content="{Binding Source={StaticResource Localization}, Path=UI_Label_ShadowOpacity}"/>
+                    <Slider Grid.Row="3" Grid.Column="1"
+                            Minimum="0" Maximum="1"
+                            Value="{Binding DropShadowSettings.Opacity, UpdateSourceTrigger=PropertyChanged}"
+                            LargeChange="0.1"
+                            AutoToolTipPlacement="TopLeft"
+                            AutoToolTipPrecision="2"
+                            Controls:SliderHelper.EnableMouseWheel="MouseHover"/>
+                </Grid>
+
+                <Expander x:Name="AdvancedExpander"
+                          Header="{Binding Source={StaticResource Localization}, Path=UI_Header_Advanced}"
+                          Margin="0,10,0,0"
+                          IsExpanded="{Binding AdvancedExpanded}">
+                    <StackPanel>
+                        <CheckBox Content="{Binding Source={StaticResource Localization}, Path=UI_Option_AccurateInnerRects}"
+                                  ToolTip="{Binding Source={StaticResource Localization}, Path=UI_Option_AccurateInnerRects_Tooltip}"
+                                  IsChecked="{Binding UseAccurateInnerRects}"
+                                  Margin="0,5"
+                                  HorizontalAlignment="Center"/>
+                        <Grid HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="2*"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label
+                                Content="{Binding Source={StaticResource Localization}, Path=UI_Label_HorizontalMargin}"
+                                Target="{x:Reference horizontalMarginNumeric}"
+                                Margin="0,5"/>
+                            <Controls:NumericUpDown
+                                    x:Name="horizontalMarginNumeric"
+                                    Value="{Binding GlyphHorizontalMargin}"
+                                    MinWidth="70"
+                                    Grid.Column="1"
+                                    Minimum="1" Maximum="20"
+                                    HasDecimals="False"
+                                    Margin="0,5"
+                                    NumericInputMode="Numbers">
+                                <Controls:NumericUpDown.ToolTip>
+                                    <ToolTip Content="{Binding Source={x:Static local:Defaults.GlyphHorizontalMargin}, Mode=OneTime}"
+                                             ContentStringFormat="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" />
+                                </Controls:NumericUpDown.ToolTip>
+                            </Controls:NumericUpDown>
+                            <Label Grid.Row="1"
+                                   Margin="0,5"
+                                   Target="{x:Reference spacingAdjustmentNumeric}"
+                                   Content="{Binding Source={StaticResource Localization}, Path=UI_Label_SpacingAdjustment}"/>
+                            <Controls:NumericUpDown
+                                x:Name="spacingAdjustmentNumeric"
+                                Grid.Row="1" Grid.Column="1"
+                                MinWidth="70"
+                                Minimum="-3"
+                                Maximum="3"
+                                Value="{Binding SpacingAdjustment}"
+                                ToolTip="{Binding Source={StaticResource Localization}, Path=UI_Label_SpacingAdjustment_Tooltip}"
+                                Margin="0,5"/>
+                        </Grid>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Content="{Binding Source={StaticResource Localization}, Path=UI_Label_TextureSize}"/>
+                            <TextBox Text="{Binding TextureWidth, Mode=OneWay}"
+                                     Width="50"
+                                     IsReadOnly="True"
+                                     IsEnabled="False"/>
+                            <TextBlock Text=" × " VerticalAlignment="Center"/>
+                            <TextBox Text="{Binding TextureHeight, Mode=OneWay}"
+                                     Width="50"
+                                     IsReadOnly="True"
+                                     IsEnabled="False" />
+                        </StackPanel>
+                        <Button x:Name="resetTextureSizeButton"
+                                Content="{Binding Source={StaticResource Localization}, Path=UI_Button_Recalculate}"
+                                ToolTip="{Binding Source={StaticResource Localization}, Path=UI_Button_Recalculate_Tooltip}"
+                                HorizontalAlignment="Center"
+                                Padding="10,0,10,0"
+                                Command="{Binding ResetTextureSize}"/>
+                    </StackPanel>
+                </Expander>
+
+                <Button Content="{Binding Source={StaticResource Localization}, Path=UI_Button_ResetDefaults}"
+                        ToolTip="{Binding Source={StaticResource Localization}, Path=UI_Button_ResetDefaults_Tooltip}"
+                        HorizontalAlignment="Center"
+                        Padding="10,5"
+                        Command="{Binding ResetToDefaults}"/>
+            </StackPanel>
+            <!--<Label Content="Lyrics:" Target="{x:Reference lyricsTextBox}"/>
+            <TextBox Grid.Row="1"
+                     x:Name="lyricsTextBox"
+                     FontWeight="{Binding ElementName=weightSelect, Path=SelectedValue}"
+                     FontFamily="{Binding ElementName=fontSelect, Path=SelectedValue}"
+                     VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto"
+                     IsReadOnly="True"
+                     Margin="10,5"/>-->
+        </Grid>
+
+        <ScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <Grid>
+                <Rectangle Width="{Binding TextureWidth}" Height="{Binding TextureHeight}"
+                           VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <Rectangle.Fill>
+                        <ImageBrush x:Name="bgTileBrush" TileMode="Tile" Viewport="0, 0, 0.05, 0.05">
+                            <ImageBrush.ImageSource>
+                                <DrawingImage>
+                                    <DrawingImage.Drawing>
+                                        <GeometryDrawing Brush="#11000000">
+                                            <GeometryDrawing.Geometry>
+                                                <GeometryGroup>
+                                                    <RectangleGeometry Rect="0, 0, 10, 10" />
+                                                    <RectangleGeometry Rect="10, 10, 10, 10" />
+                                                </GeometryGroup>
+                                            </GeometryDrawing.Geometry>
+                                        </GeometryDrawing>
+                                    </DrawingImage.Drawing>
+                                </DrawingImage>
+                            </ImageBrush.ImageSource>
+                        </ImageBrush>
+                    </Rectangle.Fill>
+                </Rectangle>
+
+                <Border BorderBrush="#55000000" BorderThickness="1" Width="{Binding TextureWidth}" Height="{Binding TextureHeight}">
+                    <Canvas x:Name="fontCanvas"
+                            Width="{Binding TextureWidth}"
+                            Height="{Binding TextureHeight}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="Transparent">
+                        <Canvas.Effect>
+                            <DropShadowEffect x:Name="dropShadow"
+                                              Color="Blue"
+                                              RenderingBias="Quality"
+                                              BlurRadius="{Binding DropShadowSettings.BlurRadius}"
+                                              Direction="{Binding DropShadowSettings.Direction}"
+                                              ShadowDepth="{Binding DropShadowSettings.Depth}"
+                                              Opacity="{Binding DropShadowSettings.Opacity}"/>
+                        </Canvas.Effect>
+                    </Canvas>
+                </Border>
+
+                <Canvas x:Name="rectCanvas"
+                        Width="{Binding TextureWidth}" Height="{Binding TextureHeight}"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Visibility="{Binding ElementName=DrawRectsCB, Path=IsChecked, Converter={StaticResource BoolToVis}}"/>
+            </Grid>
+        </ScrollViewer>
+
+        <!--<Grid Grid.ColumnSpan="2"
+              Visibility="{Binding IsGenerating, Converter={StaticResource BoolToVis}}"
+              Opacity="0"
+              Style="{StaticResource FadeIn}">
+            <Rectangle Fill="#2D707070"/>
+            <Controls:ProgressRing Width="100"/>
+        </Grid>-->
+    </Grid>
+</Controls:MetroWindow>

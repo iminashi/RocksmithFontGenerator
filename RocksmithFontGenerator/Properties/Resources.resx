@@ -1,0 +1,279 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="About_Header" xml:space="preserve">
+    <value>About</value>
+  </data>
+  <data name="UI_Option_AccurateInnerRects" xml:space="preserve">
+    <value>Use Accurate Inner _Rects</value>
+  </data>
+  <data name="UI_Option_AccurateInnerRects_Tooltip" xml:space="preserve">
+    <value>Measures the inner bounding rects from pixels.</value>
+  </data>
+  <data name="UI_Header_Advanced" xml:space="preserve">
+    <value>Advanced</value>
+  </data>
+  <data name="UI_Button_Config" xml:space="preserve">
+    <value>config</value>
+  </data>
+  <data name="UI_Header_Config" xml:space="preserve">
+    <value>Config</value>
+  </data>
+  <data name="UI_Default_Tooltip" xml:space="preserve">
+    <value>Default: {0}</value>
+  </data>
+  <data name="UI_Option_DisplayBoundingRectangles" xml:space="preserve">
+    <value>Display _Bounding Rectangles</value>
+  </data>
+  <data name="UI_Label_DropShadowSettings" xml:space="preserve">
+    <value>Drop Shadow</value>
+  </data>
+  <data name="UI_Label_FontSize" xml:space="preserve">
+    <value>S_ize:</value>
+  </data>
+  <data name="UI_Label_FontWeight" xml:space="preserve">
+    <value>_Weight:</value>
+  </data>
+  <data name="UI_Label_HorizontalMargin" xml:space="preserve">
+    <value>Horizontal _Margin:</value>
+  </data>
+  <data name="UI_Label_FontSizeKanji" xml:space="preserve">
+    <value>Kanji/Kana Si_ze:</value>
+  </data>
+  <data name="UI_Label_Language" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="UI_Button_OpenFile" xml:space="preserve">
+    <value>_Open File...</value>
+  </data>
+  <data name="UI_Button_Recalculate" xml:space="preserve">
+    <value>Recalculate</value>
+  </data>
+  <data name="UI_Button_Recalculate_Tooltip" xml:space="preserve">
+    <value>Resets texture size to 512x512 and recalculates the size needed.</value>
+  </data>
+  <data name="UI_Button_ResetDefaults" xml:space="preserve">
+    <value>R_eset to Defaults</value>
+  </data>
+  <data name="UI_Button_ResetDefaults_Tooltip" xml:space="preserve">
+    <value>Resets all settings to default values.</value>
+  </data>
+  <data name="UI_Button_SaveFont" xml:space="preserve">
+    <value>_Save Font...</value>
+  </data>
+  <data name="UI_Label_ShadowBlur" xml:space="preserve">
+    <value>Blur:</value>
+  </data>
+  <data name="UI_Label_ShadowDepth" xml:space="preserve">
+    <value>Depth:</value>
+  </data>
+  <data name="UI_Label_ShadowDirection" xml:space="preserve">
+    <value>Direction:</value>
+  </data>
+  <data name="UI_Label_ShadowOpacity" xml:space="preserve">
+    <value>Opacity:</value>
+  </data>
+  <data name="UI_Label_SpacingAdjustment" xml:space="preserve">
+    <value>Spacing A_djustment:</value>
+  </data>
+  <data name="UI_Label_TextureSize" xml:space="preserve">
+    <value>Texture Size:</value>
+  </data>
+  <data name="FileFilter_TXT" xml:space="preserve">
+    <value>Text Files</value>
+  </data>
+  <data name="FileFilter_XML" xml:space="preserve">
+    <value>RS2014 Vocals XML Files</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="Error_AddGlyphs_InvalidSurrogatePair" xml:space="preserve">
+    <value>Incorrect surrogate pair character found at the end of word "{0}".</value>
+  </data>
+  <data name="Error_AddGlyphs_TooLongCombination" xml:space="preserve">
+    <value>This character combination does not fit into 12 bytes: {0}</value>
+  </data>
+  <data name="Error_General" xml:space="preserve">
+    <value>An error occured:</value>
+  </data>
+  <data name="Error_Generation_GlyphSizeConfirmation" xml:space="preserve">
+    <value>Continue anyway? (Height will be resized to {0})</value>
+  </data>
+  <data name="Error_Generation_GlyphSizeTooLargeMessage" xml:space="preserve">
+    <value>The glyph height for the selected font will be larger than the official fonts (52 pixels).</value>
+  </data>
+  <data name="Error_Generation_GlyphSizeTooLargeTitle" xml:space="preserve">
+    <value>Glyph Size Too Large</value>
+  </data>
+  <data name="Error_Generation_OverlappingBoundingRects" xml:space="preserve">
+    <value>At least one inner bounding rect is larger than the outer.</value>
+  </data>
+  <data name="Error_Generation_TooManyGlyphs" xml:space="preserve">
+    <value>The glyphs did not fit into the max size texture</value>
+  </data>
+  <data name="Error_OpenFile_Failure" xml:space="preserve">
+    <value>Reading the file failed:</value>
+  </data>
+  <data name="Error_OpenFile_WrongFormat" xml:space="preserve">
+    <value>This file is not a valid RS2014 vocals XML file.</value>
+  </data>
+  <data name="Error_Warning" xml:space="preserve">
+    <value>Warning</value>
+  </data>
+  <data name="FileFilter_DDS" xml:space="preserve">
+    <value>DDS File Only</value>
+  </data>
+  <data name="FileFilter_PNGandDDS" xml:space="preserve">
+    <value>PNG File and DDS File</value>
+  </data>
+  <data name="FontWeight_Black" xml:space="preserve">
+    <value>Black</value>
+  </data>
+  <data name="FontWeight_Bold" xml:space="preserve">
+    <value>Bold</value>
+  </data>
+  <data name="FontWeight_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="FontWeight_Medium" xml:space="preserve">
+    <value>Medium</value>
+  </data>
+  <data name="FontWeight_Normal" xml:space="preserve">
+    <value>Normal</value>
+  </data>
+  <data name="UI_Label_CreatedBy" xml:space="preserve">
+    <value>Created by</value>
+  </data>
+  <data name="UI_Label_InfoAndHelp" xml:space="preserve">
+    <value>More information &amp; Help:</value>
+  </data>
+  <data name="UI_Label_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="UI_Label_FontSettings" xml:space="preserve">
+    <value>_Font</value>
+  </data>
+  <data name="UI_Option_DarkTheme" xml:space="preserve">
+    <value>Dark Theme</value>
+  </data>
+  <data name="UI_Label_SpacingAdjustment_Tooltip" xml:space="preserve">
+    <value>Reducing this value will reduce the gap between characters.</value>
+  </data>
+</root>
