@@ -322,7 +322,7 @@ namespace RocksmithFontGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Default: {0}.
+        ///   Looks up a localized string similar to Default:.
         /// </summary>
         public static string UI_Default_Tooltip {
             get {

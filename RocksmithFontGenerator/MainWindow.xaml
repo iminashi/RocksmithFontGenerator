@@ -141,7 +141,7 @@
                        Target="{x:Reference fontSelect}"
                        HorizontalAlignment="Center"
                        FontWeight="Bold"/>
-                
+
                 <!--<Label Content="{Binding Source={StaticResource Localization}, Path=UI_Label_FontFamily}" Target="{x:Reference fontSelect}"/>-->
 
                 <ComboBox x:Name="fontSelect"
@@ -165,19 +165,23 @@
                     <Label Margin="0,3" Grid.Row="1" Content="{Binding Source={StaticResource Localization}, Path=UI_Label_FontSize}" Target="{x:Reference fontSizeNumeric}"/>
                     <Label Margin="0,3" Grid.Row="2" Content="{Binding Source={StaticResource Localization}, Path=UI_Label_FontSizeKanji}" Target="{x:Reference jpFontSizeNumeric}"/>
 
-                        <ComboBox Grid.Column="1" Grid.Row="0"
-                                  Margin="0,3"
-                                  x:Name="weightSelect"
-                                  ItemsSource="{Binding FontWeightList, Mode=OneTime}"
-                                  SelectedItem="{Binding SelectedFontWeight}"
-                                  DisplayMemberPath="LocalizedName">
-                            <ComboBox.ToolTip>
-                                <ToolTip Content="{Binding Source={x:Static local:Defaults.FontWeight}, Path=LocalizedName}"
-                                         ContentStringFormat="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" />
-                            </ComboBox.ToolTip>
-                        </ComboBox>
-                        
-                        <Controls:NumericUpDown x:Name="fontSizeNumeric"
+                    <ComboBox Grid.Column="1" Grid.Row="0"
+                              Margin="0,3"
+                              x:Name="weightSelect"
+                              ItemsSource="{Binding FontWeightList, Mode=OneTime}"
+                              SelectedItem="{Binding SelectedFontWeight}"
+                              DisplayMemberPath="LocalizedName">
+                        <ComboBox.ToolTip>
+                            <ToolTip>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" Margin="0,0,4,0"/>
+                                    <TextBlock Text="{Binding Source={x:Static local:Defaults.FontWeight}, Path=LocalizedName}"/>
+                                </StackPanel>
+                            </ToolTip>
+                        </ComboBox.ToolTip>
+                    </ComboBox>
+
+                    <Controls:NumericUpDown x:Name="fontSizeNumeric"
                                                 Margin="0,3"
                                                 Grid.Column="1" Grid.Row="1"
                                                 Value="{Binding SelectedFontSize}"
@@ -185,25 +189,33 @@
                                                 Maximum="{Binding Source={x:Static local:Defaults.MaxFontSize}, Mode=OneTime}"
                                                 HasDecimals="False"
                                                 NumericInputMode="Numbers">
-                            <Controls:NumericUpDown.ToolTip>
-                                <ToolTip Content="{Binding Source={x:Static local:Defaults.FontSize}, Mode=OneTime}"
-                                         ContentStringFormat="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" />
-                            </Controls:NumericUpDown.ToolTip>
-                        </Controls:NumericUpDown>
-                        
-                        <Controls:NumericUpDown x:Name="jpFontSizeNumeric"
-                                                Margin="0,3"
-                                                Grid.Column="1" Grid.Row="2"
-                                                Value="{Binding SelectedKanjiFontSize}"
-                                                Minimum="{Binding Source={x:Static local:Defaults.MinFontSize}, Mode=OneTime}"
-                                                Maximum="{Binding Source={x:Static local:Defaults.MaxFontSize}, Mode=OneTime}"
-                                                HasDecimals="False"
-                                                NumericInputMode="Numbers">
-                            <Controls:NumericUpDown.ToolTip>
-                                <ToolTip Content="{Binding Source={x:Static local:Defaults.KanjiFontSize}, Mode=OneTime}"
-                                         ContentStringFormat="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" />
-                            </Controls:NumericUpDown.ToolTip>
-                        </Controls:NumericUpDown>
+                        <Controls:NumericUpDown.ToolTip>
+                            <ToolTip>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" Margin="0,0,4,0"/>
+                                    <TextBlock Text="{Binding Source={x:Static local:Defaults.FontSize}, Mode=OneTime}"/>
+                                </StackPanel>
+                            </ToolTip>
+                        </Controls:NumericUpDown.ToolTip>
+                    </Controls:NumericUpDown>
+
+                    <Controls:NumericUpDown x:Name="jpFontSizeNumeric"
+                                            Margin="0,3"
+                                            Grid.Column="1" Grid.Row="2"
+                                            Value="{Binding SelectedKanjiFontSize}"
+                                            Minimum="{Binding Source={x:Static local:Defaults.MinFontSize}, Mode=OneTime}"
+                                            Maximum="{Binding Source={x:Static local:Defaults.MaxFontSize}, Mode=OneTime}"
+                                            HasDecimals="False"
+                                            NumericInputMode="Numbers">
+                        <Controls:NumericUpDown.ToolTip>
+                            <ToolTip>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" Margin="0,0,4,0"/>
+                                    <TextBlock Text="{Binding Source={x:Static local:Defaults.KanjiFontSize}, Mode=OneTime}"/>
+                                </StackPanel>
+                            </ToolTip>
+                        </Controls:NumericUpDown.ToolTip>
+                    </Controls:NumericUpDown>
                 </Grid>
 
                 <!--<CheckBox x:Name="reverseColorsCheckBox" Content="Reverse Colors" Click="ReverseColorsCheckBox_Click"/>-->
@@ -292,8 +304,12 @@
                                     Margin="0,5"
                                     NumericInputMode="Numbers">
                                 <Controls:NumericUpDown.ToolTip>
-                                    <ToolTip Content="{Binding Source={x:Static local:Defaults.GlyphHorizontalMargin}, Mode=OneTime}"
-                                             ContentStringFormat="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" />
+                                    <ToolTip>
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Source={StaticResource Localization}, Path=UI_Default_Tooltip, Mode=OneWay}" Margin="0,0,4,0"/>
+                                            <TextBlock Text="{Binding Source={x:Static local:Defaults.GlyphHorizontalMargin}, Mode=OneTime}"/>
+                                        </StackPanel>
+                                    </ToolTip>
                                 </Controls:NumericUpDown.ToolTip>
                             </Controls:NumericUpDown>
                             <Label Grid.Row="1"

@@ -136,7 +136,7 @@
     <value>Asetukset</value>
   </data>
   <data name="UI_Default_Tooltip" xml:space="preserve">
-    <value>Oletus: {0}</value>
+    <value>Oletus:</value>
   </data>
   <data name="UI_Option_DisplayBoundingRectangles" xml:space="preserve">
     <value>Näytä ra_jaussuorakulmiot</value>
