@@ -25,6 +25,12 @@
                 </Trigger>
             </Style.Triggers>
         </Style>-->
+        <Style x:Key="hyperLink" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="LightBlue" />
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+        </Style>
     </Window.Resources>
     <Window.InputBindings>
         <KeyBinding Command="{Binding OpenFile}" Key="O" Modifiers="Ctrl"/>
@@ -81,13 +87,18 @@
                     </StackPanel>
                     <TextBlock Margin="10,15,0,0" Text="{Binding Source={StaticResource Localization}, Path=UI_Label_InfoAndHelp}" />
                     <TextBlock
+                        Style="{StaticResource hyperLink}"
                         Margin="10,0"
-                        Foreground="LightBlue"
-                        Cursor="Hand"
-                        TextDecorations="Underline"
-                        MouseUp="AboutLink_MouseUp"
-                        HorizontalAlignment="Left">
+                        MouseUp="Link_MouseUp"
+                        Tag="http://customsforge.com/index.php/topic/47416-custom-font-generator-testing/">
                         Customsforge Thread
+                    </TextBlock>
+                    <TextBlock
+                        Style="{StaticResource hyperLink}"
+                        Margin="10,3"
+                        MouseUp="Link_MouseUp"
+                        Tag="https://github.com/iminashi/RocksmithFontGenerator">
+                        GitHub
                     </TextBlock>
                 </StackPanel>
             </Controls:Flyout>

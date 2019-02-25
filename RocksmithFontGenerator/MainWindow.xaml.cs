@@ -118,9 +118,10 @@ namespace RocksmithFontGenerator
             base.OnClosed(e);
         }
 
-        private void AboutLink_MouseUp(object sender, MouseButtonEventArgs e)
+        private void Link_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            Process.Start("http://customsforge.com/index.php/topic/47416-custom-font-generator-testing/");
+            if(sender is TextBlock txt)
+                Process.Start(txt.Tag as string);
         }
 
         /*private void ReverseColorsCheckBox_Click(object sender, RoutedEventArgs e)
