@@ -475,7 +475,7 @@ namespace RocksmithFontGenerator.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Reducing this value will reduce the gap between characters..
+        ///   Looks up a localized string similar to Lowering this value will reduce the gap between characters..
         /// </summary>
         public static string UI_Label_SpacingAdjustment_Tooltip {
             get {

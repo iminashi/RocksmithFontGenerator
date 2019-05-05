@@ -393,13 +393,13 @@ namespace RocksmithFontGenerator
 
             FontGenerator.SetFont(fontFamily, SelectedFontWeight.Weight, fontSize, jpFontSize);
 
-            CanSave = false;
-
             // Generating the font will block the thread
             // But invoke it anyway so that the UI has time to update (change mouse cursor etc)
             GenerationResult result = await Application.Current.Dispatcher.InvokeAsync(
                 () => FontGenerator.TryGenerateFont(),
                 DispatcherPriority.Background);
+
+            CanSave = false;
 
             switch (result)
             {

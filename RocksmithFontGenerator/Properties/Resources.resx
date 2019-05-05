@@ -274,6 +274,6 @@
     <value>Dark Theme</value>
   </data>
   <data name="UI_Label_SpacingAdjustment_Tooltip" xml:space="preserve">
-    <value>Reducing this value will reduce the gap between characters.</value>
+    <value>Lowering this value will reduce the gap between characters.</value>
   </data>
 </root>
