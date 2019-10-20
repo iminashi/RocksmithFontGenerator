@@ -16,8 +16,6 @@ namespace RocksmithFontGenerator
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private const string SavedStateFileName = "state.xml";
-
         private readonly MainWindowViewModel ViewModel;
 
         public MainWindow()
