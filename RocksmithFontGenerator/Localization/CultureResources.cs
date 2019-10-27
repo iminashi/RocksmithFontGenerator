@@ -18,14 +18,13 @@ namespace RocksmithFontGenerator.Localization
 
         public static void EnumerateAvailableCultures()
         {
-            CultureInfo culture = null;
             foreach (string dir in Directory.GetDirectories(AppDomain.CurrentDomain.BaseDirectory))
             {
                 try
                 {
                     // See if this directory corresponds to a valid culture name
                     DirectoryInfo dirinfo = new DirectoryInfo(dir);
-                    culture = CultureInfo.GetCultureInfo(dirinfo.Name);
+                    CultureInfo culture = CultureInfo.GetCultureInfo(dirinfo.Name);
 
                     // Determine if a resources DLL exists in this directory that
                     // matches the executable name
