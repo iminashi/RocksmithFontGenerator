@@ -16,7 +16,7 @@ namespace RocksmithFontGenerator
     /// </summary>
     public partial class MainWindow : MetroWindow
     {
-        private readonly MainWindowViewModel ViewModel;
+        private MainWindowViewModel ViewModel { get; }
 
         public MainWindow()
         {

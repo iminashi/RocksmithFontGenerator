@@ -187,16 +187,23 @@ namespace RocksmithFontGenerator
 
         public void SaveProgramState()
         {
-            var isoStore = IsolatedStorageFile.GetUserStoreForAssembly();
-
-            using (var isoStream = new IsolatedStorageFileStream(SavedStateFileName, FileMode.Create, isoStore))
-            using (var writer = new StreamWriter(isoStream))
+            try
             {
-                var serializer = new XmlSerializer(typeof(ProgramState));
+                var isoStore = IsolatedStorageFile.GetUserStoreForAssembly();
 
-                var state = new ProgramState(this);
+                using (var isoStream = new IsolatedStorageFileStream(SavedStateFileName, FileMode.Create, isoStore))
+                using (var writer = new StreamWriter(isoStream))
+                {
+                    var serializer = new XmlSerializer(typeof(ProgramState));
 
-                serializer.Serialize(writer, state);
+                    var state = new ProgramState(this);
+
+                    serializer.Serialize(writer, state);
+                }
+            }
+            catch (IsolatedStorageException ex)
+            {
+                Console.WriteLine("Saving state failed: " + ex.Message);
             }
         }
 
@@ -252,9 +259,13 @@ namespace RocksmithFontGenerator
                     SelectedFont = DefaultFontFamily;
                 }
             }
-            catch (Exception ex)
+            catch (IsolatedStorageException ex)
             {
-                Debug.Print("Loading state failed: " + ex.Message);
+                Console.WriteLine("Loading state failed: " + ex.Message);
+            }
+            catch (FileNotFoundException)
+            {
+                // Default settings will be used
             }
         }
 

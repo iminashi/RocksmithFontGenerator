@@ -1,5 +1,4 @@
 ﻿using RocksmithFontGenerator.Localization;
-using RocksmithFontGenerator.Models;
 
 namespace RocksmithFontGenerator
 {
