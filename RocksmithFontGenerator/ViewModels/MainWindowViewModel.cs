@@ -503,7 +503,7 @@ namespace RocksmithFontGenerator
                     + Environment.NewLine + Environment.NewLine
                     + ex.Message;
 
-                MessageBox.Show(message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(message, Properties.Resources.Error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
