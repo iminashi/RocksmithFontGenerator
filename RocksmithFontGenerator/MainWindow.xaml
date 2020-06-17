@@ -187,7 +187,6 @@
                                                 Value="{Binding SelectedFontSize}"
                                                 Minimum="{Binding Source={x:Static local:Defaults.MinFontSize}, Mode=OneTime}"
                                                 Maximum="{Binding Source={x:Static local:Defaults.MaxFontSize}, Mode=OneTime}"
-                                                HasDecimals="False"
                                                 NumericInputMode="Numbers">
                         <Controls:NumericUpDown.ToolTip>
                             <ToolTip>
@@ -205,7 +204,6 @@
                                             Value="{Binding SelectedKanjiFontSize}"
                                             Minimum="{Binding Source={x:Static local:Defaults.MinFontSize}, Mode=OneTime}"
                                             Maximum="{Binding Source={x:Static local:Defaults.MaxFontSize}, Mode=OneTime}"
-                                            HasDecimals="False"
                                             NumericInputMode="Numbers">
                         <Controls:NumericUpDown.ToolTip>
                             <ToolTip>
@@ -300,7 +298,6 @@
                                     MinWidth="70"
                                     Grid.Column="1"
                                     Minimum="1" Maximum="20"
-                                    HasDecimals="False"
                                     Margin="0,5"
                                     NumericInputMode="Numbers">
                                 <Controls:NumericUpDown.ToolTip>

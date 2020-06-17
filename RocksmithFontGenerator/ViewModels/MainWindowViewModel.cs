@@ -1,4 +1,5 @@
-﻿using DynamicData.Binding;
+﻿using ControlzEx.Theming;
+using DynamicData.Binding;
 using MahApps.Metro;
 using Microsoft.Win32;
 using ReactiveUI;
@@ -139,11 +140,9 @@ namespace RocksmithFontGenerator
             this.WhenAnyValue(x => x.UseDarkTheme)
                 .Subscribe(dt =>
                 {
-                    string theme = dt ? "BaseDark" : "BaseLight";
+                    string theme = dt ? "Dark" : "Light";
 
-                    ThemeManager.ChangeAppStyle(Application.Current,
-                            ThemeManager.GetAccent("Steel"),
-                            ThemeManager.GetAppTheme(theme));
+                    ThemeManager.Current.ChangeTheme(Application.Current, theme + ".Steel");
                 });
 
             // Generate font after a delay when font size, glyph margin or spacing is changed
@@ -191,15 +190,12 @@ namespace RocksmithFontGenerator
             {
                 var isoStore = IsolatedStorageFile.GetUserStoreForAssembly();
 
-                using (var isoStream = new IsolatedStorageFileStream(SavedStateFileName, FileMode.Create, isoStore))
-                using (var writer = new StreamWriter(isoStream))
-                {
-                    var serializer = new XmlSerializer(typeof(ProgramState));
+                using var isoStream = new IsolatedStorageFileStream(SavedStateFileName, FileMode.Create, isoStore);
+                using var writer = new StreamWriter(isoStream);
 
-                    var state = new ProgramState(this);
-
-                    serializer.Serialize(writer, state);
-                }
+                var serializer = new XmlSerializer(typeof(ProgramState));
+                var state = new ProgramState(this);
+                serializer.Serialize(writer, state);
             }
             catch (IsolatedStorageException ex)
             {
@@ -217,41 +213,40 @@ namespace RocksmithFontGenerator
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(ProgramState));
 
-                    using (var isoStream = new IsolatedStorageFileStream(SavedStateFileName, FileMode.Open, isoStore))
-                    using (var reader = new StreamReader(isoStream))
+                    using var isoStream = new IsolatedStorageFileStream(SavedStateFileName, FileMode.Open, isoStore);
+                    using var reader = new StreamReader(isoStream);
+
+                    var state = (ProgramState)serializer.Deserialize(reader);
+                    var savedFontFamily = new FontFamily(state.FontFamilySource);
+
+                    // Check if the saved font exists in the collection
+                    // in case the user has deleted the font that was saved
+                    if (FontList.Contains(savedFontFamily))
+                        SelectedFont = savedFontFamily;
+                    else
+                        SelectedFont = DefaultFontFamily;
+
+                    SelectedFontWeight = LocalizedFontWeight.FromEnglishName(state.FontWeight);
+                    SelectedFontSize = state.FontSize;
+                    SelectedKanjiFontSize = state.KanjiFontSize;
+                    SpacingAdjustment = state.SpacingAdjustment;
+                    GlyphHorizontalMargin = state.HorizontalMargin;
+
+                    DropShadowSettings.BlurRadius = state.BlurRadius;
+                    DropShadowSettings.Direction = state.Direction;
+                    DropShadowSettings.Depth = state.ShadowDepth;
+                    DropShadowSettings.Opacity = state.Opacity;
+
+                    AdvancedExpanded = state.AdvancedExpanded;
+                    DisplayBoundingRectanglesChecked = state.DisplayBoundingRectangles;
+                    UseDarkTheme = state.UseDarkTheme;
+
+                    if (!string.IsNullOrEmpty(state.SelectedLanguage))
                     {
-                        var state = (ProgramState)serializer.Deserialize(reader);
-                        var savedFontFamily = new FontFamily(state.FontFamilySource);
-
-                        // Check if the saved font exists in the collection
-                        // in case the user has deleted the font that was saved
-                        if (FontList.Contains(savedFontFamily))
-                            SelectedFont = savedFontFamily;
-                        else
-                            SelectedFont = DefaultFontFamily;
-
-                        SelectedFontWeight = LocalizedFontWeight.FromEnglishName(state.FontWeight);
-                        SelectedFontSize = state.FontSize;
-                        SelectedKanjiFontSize = state.KanjiFontSize;
-                        SpacingAdjustment = state.SpacingAdjustment;
-                        GlyphHorizontalMargin = state.HorizontalMargin;
-
-                        DropShadowSettings.BlurRadius = state.BlurRadius;
-                        DropShadowSettings.Direction = state.Direction;
-                        DropShadowSettings.Depth = state.ShadowDepth;
-                        DropShadowSettings.Opacity = state.Opacity;
-
-                        AdvancedExpanded = state.AdvancedExpanded;
-                        DisplayBoundingRectanglesChecked = state.DisplayBoundingRectangles;
-                        UseDarkTheme = state.UseDarkTheme;
-
-                        if (!string.IsNullOrEmpty(state.SelectedLanguage))
-                        {
-                            CultureResources.ChangeCulture(new CultureInfo(state.SelectedLanguage));
-                            var lang = Languages.Find(l => l.Culture.Name == state.SelectedLanguage);
-                            if (lang != null)
-                                SelectedLanguage = lang;
-                        }
+                        CultureResources.ChangeCulture(new CultureInfo(state.SelectedLanguage));
+                        var lang = Languages.Find(l => l.Culture.Name == state.SelectedLanguage);
+                        if (lang != null)
+                            SelectedLanguage = lang;
                     }
                 }
                 else
@@ -299,11 +294,10 @@ namespace RocksmithFontGenerator
 
         private static bool IsValidFile(string filename)
         {
-            using (var reader = XmlReader.Create(filename))
-            {
-                reader.MoveToContent();
-                return reader.Name == "vocals";
-            }
+            using var reader = XmlReader.Create(filename);
+
+            reader.MoveToContent();
+            return reader.Name == "vocals";
         }
 
         public void ReadTextFile(string filename)
