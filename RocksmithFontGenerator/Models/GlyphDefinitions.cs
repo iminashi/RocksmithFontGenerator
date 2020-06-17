@@ -3,6 +3,8 @@ using System.Windows;
 using System.Xml;
 using System.Xml.Serialization;
 
+using XmlUtils;
+
 namespace RocksmithFontGenerator.Models
 {
     [XmlRoot(Namespace = "")]

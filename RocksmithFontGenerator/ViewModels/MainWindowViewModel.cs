@@ -1,11 +1,15 @@
 ﻿using ControlzEx.Theming;
+
 using DynamicData.Binding;
-using MahApps.Metro;
+
 using Microsoft.Win32;
+
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+
 using RocksmithFontGenerator.Localization;
 using RocksmithFontGenerator.Models;
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -24,9 +28,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Threading;
-using System.Xml;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+
+using XmlUtils;
 
 namespace RocksmithFontGenerator
 {
@@ -293,12 +298,7 @@ namespace RocksmithFontGenerator
         }
 
         private static bool IsValidFile(string filename)
-        {
-            using var reader = XmlReader.Create(filename);
-
-            reader.MoveToContent();
-            return reader.Name == "vocals";
-        }
+            => XmlHelper.ValidateRootElement(filename, "vocals");
 
         public void ReadTextFile(string filename)
         {
@@ -309,7 +309,7 @@ namespace RocksmithFontGenerator
 
                 using (StreamReader reader = new StreamReader(filename))
                 {
-                    while(true)
+                    while (true)
                     {
                         int c = reader.Read();
                         if (c == -1)
