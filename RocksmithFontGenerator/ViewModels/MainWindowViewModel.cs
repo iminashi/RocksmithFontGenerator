@@ -48,6 +48,8 @@ namespace RocksmithFontGenerator
 
         public string ProgramVersion { get; set; }
 
+        public string OpenFilePath { get; set; }
+
         public DropShadowSettings DropShadowSettings { get; } = new DropShadowSettings();
 
         private readonly Canvas FontCanvas;
@@ -271,7 +273,7 @@ namespace RocksmithFontGenerator
 
         private async Task OpenFile_Impl()
         {
-            OpenFileDialog openFileDialog = new OpenFileDialog
+            var openFileDialog = new OpenFileDialog
             {
                 Filter = $"{Properties.Resources.FileFilter_XML}|*.xml|{Properties.Resources.FileFilter_TXT}|*.txt",
                 Multiselect = false
@@ -297,17 +299,17 @@ namespace RocksmithFontGenerator
                 await GenerateFont.Execute();
         }
 
-        private static bool IsValidFile(string filename)
-            => XmlHelper.ValidateRootElement(filename, "vocals");
+        private static bool IsValidFile(string path)
+            => XmlHelper.ValidateRootElement(path, "vocals");
 
-        public void ReadTextFile(string filename)
+        public void ReadTextFile(string path)
         {
             try
             {
-                StringBuilder stringBuilder = new StringBuilder();
+                var stringBuilder = new StringBuilder();
                 char[] stripChars = new[] { '\t', '\r', '\n' };
 
-                using (StreamReader reader = new StreamReader(filename))
+                using (var reader = new StreamReader(path))
                 {
                     while (true)
                     {
@@ -329,7 +331,8 @@ namespace RocksmithFontGenerator
                 return;
             }
 
-            WindowTitle = filename + " - " + ProgramName;
+            OpenFilePath = path;
+            WindowTitle = path + " - " + ProgramName;
 
             CanGenerate = true;
         }
@@ -348,14 +351,14 @@ namespace RocksmithFontGenerator
             CanGenerate = false;
         }
 
-        public void ReadVocalsXML(string filename)
+        public void ReadVocalsXML(string path)
         {
             try
             {
-                if (!IsValidFile(filename))
+                if (!IsValidFile(path))
                     throw new FileFormatException(Properties.Resources.Error_OpenFile_WrongFormat);
 
-                XElement jpXML = XElement.Load(filename);
+                XElement jpXML = XElement.Load(path);
 
                 foreach (var vocal in jpXML.Elements("vocal"))
                 {
@@ -374,7 +377,8 @@ namespace RocksmithFontGenerator
                 return;
             }
 
-            WindowTitle = filename + " - " + ProgramName;
+            OpenFilePath = path;
+            WindowTitle = path + " - " + ProgramName;
 
             CanGenerate = true;
         }
@@ -429,11 +433,12 @@ namespace RocksmithFontGenerator
 
         private void SaveFont_Impl()
         {
-            SaveFileDialog saveFileDialog = new SaveFileDialog
+            var saveFileDialog = new SaveFileDialog
             {
                 Filter = $"{Properties.Resources.FileFilter_DDS}|*.dds|{Properties.Resources.FileFilter_PNGandDDS}|*.png",
                 FileName = "lyrics",
-                AddExtension = true
+                AddExtension = true,
+                InitialDirectory = Path.GetDirectoryName(OpenFilePath)
             };
 
             try
