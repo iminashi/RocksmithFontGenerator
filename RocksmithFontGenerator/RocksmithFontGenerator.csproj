@@ -172,7 +172,7 @@
       <Version>18.4.44</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.Fody">
-      <Version>17.1.50</Version>
+      <Version>18.4.44</Version>
     </PackageReference>
     <PackageReference Include="ReactiveUI.WPF">
       <Version>18.4.44</Version>
