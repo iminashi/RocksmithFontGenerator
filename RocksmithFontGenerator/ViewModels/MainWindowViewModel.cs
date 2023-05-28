@@ -120,8 +120,7 @@ namespace RocksmithFontGenerator
             Languages = CultureResources.AvailableCultures.Select(culture => new Language(culture)).ToList();
 
             var currentLanguage = Languages.Find(l => l.Culture.TwoLetterISOLanguageName == Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName);
-            if (currentLanguage is null)
-                currentLanguage = Languages.Find(l => l.Culture == CultureResources.AvailableCultures[0]);
+            currentLanguage ??= Languages.Find(l => l.Culture == CultureResources.AvailableCultures[0]);
 
             SelectedLanguage = currentLanguage;
             FontWeightList = LocalizedFontWeights.All;
