@@ -120,7 +120,7 @@ namespace RocksmithFontGenerator
             Languages = CultureResources.AvailableCultures.Select(culture => new Language(culture)).ToList();
 
             var currentLanguage = Languages.Find(l => l.Culture.TwoLetterISOLanguageName == Thread.CurrentThread.CurrentUICulture.TwoLetterISOLanguageName);
-            if (currentLanguage == null)
+            if (currentLanguage is not null)
                 currentLanguage = Languages.Find(l => l.Culture == CultureResources.AvailableCultures[0]);
 
             SelectedLanguage = currentLanguage;
@@ -218,7 +218,7 @@ namespace RocksmithFontGenerator
 
                 if (isoStore.FileExists(SavedStateFileName))
                 {
-                    XmlSerializer serializer = new XmlSerializer(typeof(ProgramState));
+                    var serializer = new XmlSerializer(typeof(ProgramState));
 
                     using var isoStream = new IsolatedStorageFileStream(SavedStateFileName, FileMode.Open, isoStore);
                     using var reader = new StreamReader(isoStream);
@@ -467,7 +467,7 @@ namespace RocksmithFontGenerator
 
                     BitmapFunctions.SaveImage(FontCanvas, tempPngFile, TextureWidth, TextureHeight);
 
-                    using (Process nvdxtProcess = new Process())
+                    using (var nvdxtProcess = new Process())
                     {
                         nvdxtProcess.StartInfo.UseShellExecute = false;
                         nvdxtProcess.StartInfo.CreateNoWindow = true;
