@@ -324,17 +324,12 @@ namespace RocksmithFontGenerator
                 }
 
                 FontGenerator.AddGlyphsFromWord(stringBuilder.ToString());
+                OpenSuccess(path);
             }
             catch (Exception ex)
             {
                 OpenFailed(ex.Message);
-                return;
             }
-
-            OpenFilePath = path;
-            WindowTitle = path + " - " + ProgramName;
-
-            CanGenerate = true;
         }
 
         private void OpenFailed(string message)
@@ -349,6 +344,13 @@ namespace RocksmithFontGenerator
             WindowTitle = ProgramName;
 
             CanGenerate = false;
+        }
+
+        private void OpenSuccess(string path)
+        {
+            OpenFilePath = path;
+            WindowTitle = path + " - " + ProgramName;
+            CanGenerate = true;
         }
 
         public void ReadVocalsXML(string path)
@@ -370,17 +372,12 @@ namespace RocksmithFontGenerator
 
                 // Space is always included in official Japanese lyrics
                 FontGenerator.AddGlyph(" ");
+                OpenSuccess(path);
             }
             catch (Exception ex)
             {
                 OpenFailed(ex.Message);
-                return;
             }
-
-            OpenFilePath = path;
-            WindowTitle = path + " - " + ProgramName;
-
-            CanGenerate = true;
         }
 
         private async Task GenerateFont_Impl()
