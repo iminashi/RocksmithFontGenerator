@@ -90,7 +90,7 @@
                         Style="{StaticResource hyperLink}"
                         Margin="10,0"
                         MouseUp="Link_MouseUp"
-                        Tag="http://customsforge.com/index.php/topic/47416-custom-font-generator-testing/">
+                        Tag="https://customsforge.com/index.php?/topic/47416-custom-font-generator/">
                         Customsforge Thread
                     </TextBlock>
                     <TextBlock
